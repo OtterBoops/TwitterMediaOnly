@@ -12,34 +12,51 @@
     (get_target_parent(node).style.display =
       show_all || has_media(node) ? 'block' : 'none');
   let set_all_article_states = () => void for_each_article(set_article_state);
-
+  let button = document.createElement('button');
   let create_ui = () => {
-    let button = document.createElement('button');
-    let bStyle = button.style;
-    bStyle.color = 'white';
-    bStyle.cursor = 'pointer';
-    bStyle.fontFamily = 'TwitterChirp';
-    bStyle.fontSize = '17px';
-    bStyle.fontWeight = 700;
-    bStyle.lineHeight = '20px';
-    bStyle.marginTop = '20px';
-    bStyle.borderRadius = '999px';
-    bStyle.backgroundColor = 'rgb(0, 167, 112)';
-    bStyle.border = 'none';
-    bStyle.minHeight = '52px';
-    bStyle.minHeight = '52px';
-    bStyle.padding = '0px 32px';
-    bStyle.transition = '0.2s background-color';
+    button.style.marginTop = '20px';
+    // bStyle.color = 'white';
+    // bStyle.cursor = 'pointer';
+    // bStyle.fontFamily = 'TwitterChirp';
+    // bStyle.fontSize = '17px';
+    // bStyle.fontWeight = 700;
+    // bStyle.lineHeight = '20px';
+    // bStyle.marginTop = '20px';
+    // bStyle.borderRadius = '999px';
+    // button.style.backgroundColor = 'rgb(0, 167, 112)';
+    // bStyle.border = 'none';
+    // bStyle.minHeight = '52px';
+    // bStyle.minHeight = '52px';
+    // bStyle.padding = '0px 32px';
+    // bStyle.transition = '0.2s background-color';
 
     let area = document.querySelectorAll(
       'header > div > div > div > div > div'
     )[2];
 
+    let tweetButtonStyle =
+      area.querySelector('a').className +
+      ' ' +
+      area.querySelector('a > div').className +
+      ' ' +
+      area.querySelector('a > div > span').className;
+
+    button.className = tweetButtonStyle;
+    button.style.backgroundColor = window
+      .getComputedStyle(area.querySelector('a'))
+      .getPropertyValue('background-color');
+
+    button.style.color = window
+      .getComputedStyle(area.querySelector('a > div > span'))
+      .getPropertyValue('color');
+
     area.appendChild(button);
     let set_button_state = () => {
-      button.innerText = show_all
-        ? 'Showing all home tweets'
-        : 'Showing only media home tweets';
+      if (document.getElementsByTagName('header')[0].offsetWidth > 100)
+        button.innerText = show_all
+          ? 'Showing all home tweets'
+          : 'Showing only media home tweets';
+      else button.innerText = show_all ? 'All' : 'Media';
     };
 
     button.onclick = function () {
@@ -50,18 +67,21 @@
     set_button_state();
   };
 
-  let start_process = function () {
+  let start_process = () => {
     setInterval(function () {
-      if (location.pathname == '/home') {
+      if (location.pathname === '/home') {
         set_all_article_states();
+      } else {
+        button.style.display = 'none';
       }
     });
   };
 
   // Wait for twitter's react crap finish loading things.
-  let scan_interval = setInterval(function () {
+  let scan_interval = setInterval(() => {
     let target = document.body.querySelector("h1[role='heading']");
-    if (target) {
+    let sidebar = document.body.getElementsByTagName('header');
+    if (target && sidebar) {
       clearInterval(scan_interval);
       start_process(target);
       create_ui(target);
