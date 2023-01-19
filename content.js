@@ -15,21 +15,6 @@
   let button = document.createElement('button');
   let create_ui = () => {
     button.style.marginTop = '20px';
-    // bStyle.color = 'white';
-    // bStyle.cursor = 'pointer';
-    // bStyle.fontFamily = 'TwitterChirp';
-    // bStyle.fontSize = '17px';
-    // bStyle.fontWeight = 700;
-    // bStyle.lineHeight = '20px';
-    // bStyle.marginTop = '20px';
-    // bStyle.borderRadius = '999px';
-    // button.style.backgroundColor = 'rgb(0, 167, 112)';
-    // bStyle.border = 'none';
-    // bStyle.minHeight = '52px';
-    // bStyle.minHeight = '52px';
-    // bStyle.padding = '0px 32px';
-    // bStyle.transition = '0.2s background-color';
-
     let area = document.querySelectorAll(
       'header > div > div > div > div > div'
     )[2];
