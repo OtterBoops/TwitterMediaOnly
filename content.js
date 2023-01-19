@@ -13,6 +13,7 @@
       show_all || has_media(node) ? 'block' : 'none');
   let set_all_article_states = () => void for_each_article(set_article_state);
   let button = document.createElement('button');
+
   let create_ui = () => {
     button.style.marginTop = '20px';
     let area = document.querySelectorAll(
@@ -62,11 +63,9 @@
     });
   };
 
-  // Wait for twitter's react crap finish loading things.
   let scan_interval = setInterval(() => {
     let target = document.body.querySelector("h1[role='heading']");
-    let sidebar = document.body.getElementsByTagName('header');
-    if (target && sidebar) {
+    if (target) {
       clearInterval(scan_interval);
       start_process(target);
       create_ui(target);
