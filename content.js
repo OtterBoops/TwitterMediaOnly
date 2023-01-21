@@ -71,4 +71,8 @@
       create_ui(target);
     }
   }, 10);
+
+  addEventListener('resize', () => {
+    create_ui();
+  });
 })();
