@@ -38,7 +38,7 @@
 
     area.appendChild(button);
     let set_button_state = () => {
-      if (document.getElementsByTagName('header')[0].offsetWidth > 100)
+      if (document.querySelector('header > div > div > div').offsetWidth > 100)
         button.innerText = show_all
           ? 'Showing all home tweets'
           : 'Showing only media home tweets';
