@@ -20,6 +20,45 @@
       'header > div > div > div > div > div'
     )[2];
 
+    style_ui();
+
+    area.appendChild(button);
+    let set_button_state = () => {
+      if (document.querySelector('header > div > div > div').offsetWidth > 100)
+        button.innerText = show_all
+          ? 'Showing all home tweets'
+          : 'Showing media only';
+      else button.innerText = show_all ? 'All' : 'Media';
+    };
+
+    button.onclick = function () {
+      show_all = !show_all;
+      set_button_state();
+    };
+
+    set_button_state();
+  };
+
+  let check_ui = () => {
+    let button = document.querySelector(
+      'header > div > div > div > div > div > button'
+    );
+
+    if (!button || button.style.display === 'none') return false;
+    else return true;
+  };
+
+  let style_ui = () => {
+    if (document.querySelector('header > div > div > div').offsetWidth > 100)
+      button.innerText = show_all
+        ? 'Showing all home tweets'
+        : 'Showing media only';
+    else button.innerText = show_all ? 'All' : 'Media';
+
+    let area = document.querySelectorAll(
+      'header > div > div > div > div > div'
+    )[2];
+
     let tweetButtonStyle =
       area.querySelector('a').className +
       ' ' +
@@ -35,26 +74,10 @@
     button.style.color = window
       .getComputedStyle(area.querySelector('a > div > span'))
       .getPropertyValue('color');
-
-    area.appendChild(button);
-    let set_button_state = () => {
-      if (document.querySelector('header > div > div > div').offsetWidth > 100)
-        button.innerText = show_all
-          ? 'Showing all home tweets'
-          : 'Showing only media home tweets';
-      else button.innerText = show_all ? 'All' : 'Media';
-    };
-
-    button.onclick = function () {
-      show_all = !show_all;
-      set_button_state();
-    };
-
-    set_button_state();
   };
 
   let start_process = () => {
-    setInterval(function () {
+    setInterval(() => {
       if (location.pathname === '/home') {
         set_all_article_states();
       } else {
@@ -72,7 +95,14 @@
     }
   }, 10);
 
-  addEventListener('resize', () => {
-    create_ui();
-  });
+  window.onresize = () => {
+    style_ui();
+  };
+
+  window.onclick = () => {
+    if (!check_ui() && location.pathname === '/home') {
+      create_ui();
+      button.style.display = 'flex';
+    }
+  };
 })();
