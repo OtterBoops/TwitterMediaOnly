@@ -74,6 +74,10 @@
     button.style.color = window
       .getComputedStyle(area.querySelector('a > div > span'))
       .getPropertyValue('color');
+
+    button.style.fontFamily = window
+      .getComputedStyle(area.querySelector('a > div > span'))
+      .getPropertyValue('font-family');
   };
 
   let start_process = () => {
