@@ -26,7 +26,7 @@
     let set_button_state = () => {
       if (document.querySelector('header > div > div > div').offsetWidth > 100)
         button.innerText = show_all
-          ? 'Showing all home tweets'
+          ? 'Showing all home posts'
           : 'Showing media only';
       else button.innerText = show_all ? 'All' : 'Media';
     };
@@ -51,7 +51,7 @@
   let style_ui = () => {
     if (document.querySelector('header > div > div > div').offsetWidth > 100)
       button.innerText = show_all
-        ? 'Showing all home tweets'
+        ? 'Showing all home posts'
         : 'Showing media only';
     else button.innerText = show_all ? 'All' : 'Media';
 
@@ -78,6 +78,8 @@
     button.style.fontFamily = window
       .getComputedStyle(area.querySelector('a > div > span'))
       .getPropertyValue('font-family');
+
+    button.style.minWidth = '50px';
   };
 
   let start_process = () => {
